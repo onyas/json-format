@@ -1,4 +1,4 @@
-# Format json from underline to a hump style.
+# A JSON formatting, conversion, and compression tool
 
 Please try in https://onyas.github.io/json-format/
 
