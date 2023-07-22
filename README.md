@@ -2,7 +2,7 @@
 
 Please try in https://onyas.github.io/json-format/
 
-## examples
+## Examples
 
 input.json
 
