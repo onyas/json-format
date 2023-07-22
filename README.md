@@ -1,5 +1,7 @@
 # Format json from underline to a hump style.
 
+Please try in https://onyas.github.io/json-format/
+
 ## examples
 
 input.json
@@ -33,3 +35,11 @@ After format, output.json
 - `npx create-react-app json-format`
 - `cd json-format`
 - `npm start`
+
+# How to publish
+
+- `npm install gh-pages --save-dev`
+
+When there are new changes, execute this command to deploy the latest code
+
+- `npm run deploy`
