@@ -24,6 +24,19 @@ const JsonFormatter = () => {
     }
   };
 
+  const handleStringToJsonClick = () => {
+    try {
+      const parsedJson = JSON.parse(inputJson);
+      setInputJson(JSON.stringify(parsedJson, null, 2));
+      setFormattedJson("");
+      setCompressedJson("");
+    } catch (error) {
+      setInputJson("Invalid JSON");
+      setFormattedJson("");
+      setCompressedJson("");
+    }
+  };
+
   const formatJsonKeys = (obj) => {
     if (typeof obj !== "object" || obj === null) {
       return obj;
@@ -51,6 +64,7 @@ const JsonFormatter = () => {
         style={{ width: "100%", height: "150px" }}
       />
 
+      <button onClick={handleStringToJsonClick}>Format</button>
       <button onClick={handleFormatClick}>Transform</button>
       <button onClick={handleCompressClick}>Compression</button>
 
