@@ -3,15 +3,16 @@ import React, { useState } from "react";
 const JsonFormatter = () => {
   const [inputJson, setInputJson] = useState("");
   const [formattedJson, setFormattedJson] = useState("");
+  const [transformedJson, setTransformedJson] = useState("");
   const [compressedJson, setCompressedJson] = useState("");
 
-  const handleFormatClick = () => {
+  const handleTransFormClick = () => {
     try {
       const parsedJson = JSON.parse(inputJson);
-      const formattedObj = formatJsonKeys(parsedJson);
-      setFormattedJson(JSON.stringify(formattedObj, null, 2));
+      const formattedObj = transformJsonKeys(parsedJson);
+      setTransformedJson(JSON.stringify(formattedObj, null, 2));
     } catch (error) {
-      setFormattedJson("Invalid JSON");
+      setTransformedJson("Invalid JSON");
     }
   };
 
@@ -24,33 +25,33 @@ const JsonFormatter = () => {
     }
   };
 
-  const handleStringToJsonClick = () => {
+  const handleFormatJson = () => {
     try {
       const parsedJson = JSON.parse(inputJson);
-      setInputJson(JSON.stringify(parsedJson, null, 2));
-      setFormattedJson("");
+      setFormattedJson(JSON.stringify(parsedJson, null, 2));
+      setTransformedJson("");
       setCompressedJson("");
     } catch (error) {
-      setInputJson("Invalid JSON");
-      setFormattedJson("");
+      setFormattedJson("Invalid JSON");
+      setTransformedJson("");
       setCompressedJson("");
     }
   };
 
-  const formatJsonKeys = (obj) => {
+  const transformJsonKeys = (obj) => {
     if (typeof obj !== "object" || obj === null) {
       return obj;
     }
 
     if (Array.isArray(obj)) {
-      return obj.map(formatJsonKeys);
+      return obj.map(transformJsonKeys);
     }
 
     return Object.keys(obj).reduce((formattedObj, key) => {
       const formattedKey = key.replace(/_(.)/g, (_, letter) =>
         letter.toUpperCase()
       );
-      formattedObj[formattedKey] = formatJsonKeys(obj[key]);
+      formattedObj[formattedKey] = transformJsonKeys(obj[key]);
       return formattedObj;
     }, {});
   };
@@ -64,15 +65,26 @@ const JsonFormatter = () => {
         style={{ width: "100%", height: "150px" }}
       />
 
-      <button onClick={handleStringToJsonClick}>Format</button>
-      <button onClick={handleFormatClick}>Transform</button>
+      <button onClick={handleFormatJson}>Format</button>
+      <button onClick={handleTransFormClick}>Transform</button>
       <button onClick={handleCompressClick}>Compression</button>
 
       {formattedJson && (
         <div>
-          <h3>Transformed JSON:</h3>
+          <h3>Formatted JSON:</h3>
           <textarea
             value={formattedJson}
+            readOnly
+            style={{ width: "100%", height: "150px" }}
+          />
+        </div>
+      )}
+
+      {transformedJson && (
+        <div>
+          <h3>Transformed JSON:</h3>
+          <textarea
+            value={transformedJson}
             readOnly
             style={{ width: "100%", height: "150px" }}
           />
